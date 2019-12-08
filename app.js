@@ -9,26 +9,24 @@ app.use(cors());
 
 // for dev
 // const PORT = config.port;
-// const SOURCE_DIR = config.SOURCE_DIR;
 // const ABS_PATH = config.ABS_PATH;
 // const DATA_PATH = config.DATA_PATH;
 
 // for prod
 const PORT = keys.port;
-const SOURCE_DIR = keys.SOURCE_DIR;
 const ABS_PATH = keys.ABS_PATH;
 const DATA_PATH = keys.DATA_PATH;
 
 /** Responds with the latest image. */
 app.get('/latestimage', (reg, res) => {
-  let imageList = fs.readdirSync(SOURCE_DIR);
+  let imageList = fs.readdirSync(ABS_PATH);
   let mostRecentImage = ABS_PATH + imageList.slice(-1)[0];
   res.sendFile(mostRecentImage);
 });
 
 /** Responds with the latest image. */
 app.get('/image', (reg, res) => {
-  let imageList = fs.readdirSync(SOURCE_DIR);
+  let imageList = fs.readdirSync(ABS_PATH);
   let mostRecentImage = ABS_PATH + imageList.slice(-1)[0];
   res.sendFile(mostRecentImage);
 });

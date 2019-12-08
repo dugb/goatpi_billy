@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const config = require('./config');
-const keys = require('./keys');
+// const keys = require('./keys');
 
 const app = express();
 app.use(cors());
@@ -17,7 +17,7 @@ function getRandomInt(max) {
 
 app.get("/latestimage", (reg, res) => {
   let imageList = fs.readdirSync(SOURCE_DIR);
-  let mostRecentImage = ABS_PATH + imageList[getRandomInt(20)];
+  let mostRecentImage = ABS_PATH + imageList.slice(-1)[0];
   res.sendFile(mostRecentImage);
 });
 app.listen(PORT, () =>

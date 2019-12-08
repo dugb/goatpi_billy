@@ -1,25 +1,59 @@
-const express = require("express");
-const cors = require("cors");
-const fs = require("fs");
+const express = require('express');
+const cors = require('cors');
+const fs = require('fs');
 const config = require('./config');
 // const keys = require('./keys');
 
 const app = express();
 app.use(cors());
 
-const PORT = config.port;
-const SOURCE_DIR = config.SOURCE_DIR;
-const ABS_PATH = config.ABS_PATH;
+// for dev
+// const PORT = config.port;
+// const SOURCE_DIR = config.SOURCE_DIR;
+// const ABS_PATH = config.ABS_PATH;
+// const DATA_PATH = config.DATA_PATH;
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+// for prod
+const PORT = keys.port;
+const SOURCE_DIR = keys.SOURCE_DIR;
+const ABS_PATH = keys.ABS_PATH;
+const DATA_PATH = keys.DATA_PATH;
 
-app.get("/latestimage", (reg, res) => {
+/** Responds with the latest image. */
+app.get('/latestimage', (reg, res) => {
   let imageList = fs.readdirSync(SOURCE_DIR);
   let mostRecentImage = ABS_PATH + imageList.slice(-1)[0];
   res.sendFile(mostRecentImage);
 });
+
+/** Responds with the latest image. */
+app.get('/image', (reg, res) => {
+  let imageList = fs.readdirSync(SOURCE_DIR);
+  let mostRecentImage = ABS_PATH + imageList.slice(-1)[0];
+  res.sendFile(mostRecentImage);
+});
+
+/** Responds with the latest data. */
+app.get('/data', (req, res) => {
+  jsonReader();
+  const data = jsonReader();
+  res.status(200).json(data)
+});
+
+function jsonReader() {
+  let data;
+  try {
+    const jsonString = fs.readFileSync(DATA_PATH + "data.json");
+    data = JSON.parse(jsonString);
+    
+  } catch (err) {
+    console.log(err);
+    return;
+  }
+  return data;
+}
+
+
 app.listen(PORT, () =>
   console.log(`goatpi_billy server listening on port ${PORT}!`)
 );

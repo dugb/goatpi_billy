@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
-const config = require('./config');
-// const keys = require('./keys');
+// const config = require('./config');
+const keys = require('./keys');
 
 const app = express();
 app.use(cors());

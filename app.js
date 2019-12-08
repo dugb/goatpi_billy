@@ -43,7 +43,7 @@ app.get('/data', (req, res) => {
 function jsonReader() {
   let data;
   try {
-    const jsonString = fs.readFileSync(DATA_PATH + "data.json");
+    const jsonString = fs.readFileSync(DATA_PATH + '/'+ 'data.json');
     data = JSON.parse(jsonString);
     
   } catch (err) {

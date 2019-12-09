@@ -18,17 +18,24 @@ const ABS_PATH = keys.ABS_PATH;
 const DATA_PATH = keys.DATA_PATH;
 
 /** Responds with the latest image. */
-app.get('/latestimage', (reg, res) => {
-  let imageList = fs.readdirSync(ABS_PATH);
-  let mostRecentImage = ABS_PATH + imageList.slice(-1)[0];
-  res.sendFile(mostRecentImage);
-});
-
-/** Responds with the latest image. */
 app.get('/image', (reg, res) => {
-  let imageList = fs.readdirSync(ABS_PATH);
-  let mostRecentImage = ABS_PATH + imageList.slice(-1)[0];
-  res.sendFile(mostRecentImage);
+  const imageList = fs.readdirSync(ABS_PATH).reverse();
+  // use first image that has a reasonable file size
+  let mostRecentImage;
+  for (const img of imageList) {
+    const stats = fs.statSync(ABS_PATH + img);
+    if (stats.size > 0) {
+      mostRecentImage = ABS_PATH + img;
+      break;
+    }
+  }
+  if (mostRecentImage) {
+    res.sendFile(mostRecentImage);
+  } else {
+    res.status(500);
+    res.send('error')
+  }
+
 });
 
 /** Responds with the latest data. */
@@ -43,7 +50,7 @@ function jsonReader() {
   try {
     const jsonString = fs.readFileSync(DATA_PATH + 'data.json');
     data = JSON.parse(jsonString);
-    
+
   } catch (err) {
     console.log(err);
     return;

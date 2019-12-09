@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
+const sizeOf = require('image-size');
 // const config = require('./config');
 const keys = require('./keys');
 
@@ -20,13 +21,18 @@ const DATA_PATH = keys.DATA_PATH;
 /** Responds with the latest image. */
 app.get('/image', (reg, res) => {
   const imageList = fs.readdirSync(ABS_PATH).reverse();
-  // use first image that has a reasonable file size
+  // use first image that has a reasonable file size and dimensions.
   let mostRecentImage;
   for (const img of imageList) {
-    const stats = fs.statSync(ABS_PATH + img);
-    if (stats.size > 0) {
-      mostRecentImage = ABS_PATH + img;
-      break;
+    const image = ABS_PATH + img;
+    const stats = fs.statSync(image);
+    // TODO(dugb) put these min size values in constants.
+    if (stats.size > 0){
+      const dimensions = sizeOf(image);
+      if (dimensions.width >= 800 && dimensions.height >= 450) {
+        mostRecentImage = image;
+        break;
+     }  
     }
   }
   if (mostRecentImage) {

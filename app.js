@@ -21,10 +21,11 @@ const DATA_PATH = keys.DATA_PATH;
 /** Responds with the latest image. */
 app.get('/image', (reg, res) => {
   const imageList = fs.readdirSync(ABS_PATH).reverse();
-  // use first image that has a reasonable file size and dimensions.
+  const sortedList = sortByModTime(imageList);
+  // use first image that has reasonable file size and dimensions.
   let mostRecentImage;
-  for (const img of imageList) {
-    const image = ABS_PATH + img;
+  for (const img of sortedList) {
+    const image = ABS_PATH + img.name;
     const stats = fs.statSync(image);
     // TODO(dugb) put these min size values in constants.
     if (stats.size > 0){
@@ -63,6 +64,19 @@ function jsonReader() {
   }
   return data;
 }
+
+function sortByModTime(imageList){
+  let sortedlist = [];
+  for (img of imageList){
+    const image = ABS_PATH + img;
+    const stat = fs.statSync(image);
+    sortedlist.push({name: img, mtime: stat.mtime});
+  }
+  sortedlist.sort((a, b) => {
+    return b.mtime - a.mtime;
+  })
+  return sortedlist;
+  }
 
 
 app.listen(PORT, () =>

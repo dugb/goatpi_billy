@@ -36,7 +36,7 @@ module.exports = class ImageHandler {
   /**  
     * @param {Array<string>} imageList Array of image file names.
     * @param {string} imagePath Absolute path of the images.
-    * @return {Array<string>}  Array of image file names, sorted by modified time.
+    * @return {Array<Object>}  Array of image file names and modified times, sorted by modified time.
     */
   sortByModTime(imageList, imagePath) {
     let sortedlist = [];

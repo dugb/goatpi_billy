@@ -1,5 +1,5 @@
-const sizeOf = require("image-size");
-const fs = require("fs");
+const sizeOf = require('image-size');
+const fs = require('fs');
 
 const MIN_FILESIZE = 1;  // bytes
 const MIN_IMAGEWIDTH = 800;  // pixels

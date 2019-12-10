@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+
 const DataHandler = require('./dataHandler');
 const ImageHandler = require('./imageHandler');
 const keys = require('./keys');
@@ -7,21 +8,21 @@ const keys = require('./keys');
 const app = express();
 app.use(cors());
 
-const PORT = keys.port;
-const ABS_PATH = keys.ABS_PATH;  // Absolute path of images
+const PORT = keys.PORT;
+const IMG_PATH = keys.IMG_PATH;
 const DATA_PATH = keys.DATA_PATH;
 
 /** Responds with the latest image. */
 app.get('/image', (reg, res) => {
   const imageHandler = new ImageHandler();
-  const imageList = imageHandler.getImageList(ABS_PATH).reverse();
-  const sortedList = imageHandler.sortByModTime(imageList, ABS_PATH);
-  let mostRecentImage = imageHandler.getSuitableImage(sortedList, ABS_PATH);
+  const imageList = imageHandler.getImageList(IMG_PATH);
+  const sortedList = imageHandler.sortByModTime(imageList, IMG_PATH);
+  const mostRecentImage = imageHandler.getSuitableImage(sortedList, IMG_PATH);
   if (mostRecentImage) {
     res.sendFile(mostRecentImage);
   } else {
     res.status(500);
-    res.send('error')
+    res.send('error - no image found')
   }
 });
 
@@ -33,5 +34,5 @@ app.get('/data', (req, res) => {
 });
 
 app.listen(PORT, () =>
-  console.log(`goatpi_billy server listening on port ${PORT}!`)
+  console.log(`goatpi_billy started on port ${PORT}!`)
 );

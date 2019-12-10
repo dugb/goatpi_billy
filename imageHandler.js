@@ -13,6 +13,11 @@ module.exports = class ImageHandler {
     return fs.readdirSync(imagePath).reverse();
   }
 
+  /**
+   * @param {Array<string>} imageList Array of image file names.
+   * @param {string} imagePath Absolute path of the images.
+   * @return {string} Absolute path of an image.
+   */
   getSuitableImage(imageList, imagePath){
     let suitableImage;
     for (const img of imageList) {
@@ -28,7 +33,11 @@ module.exports = class ImageHandler {
     }
     return suitableImage || undefined;
   }
-
+  /**  
+    * @param {Array<string>} imageList Array of image file names.
+    * @param {string} imagePath Absolute path of the images.
+    * @return {Array<string>}  Array of image file names, sorted by modified time.
+    */
   sortByModTime(imageList, imagePath) {
     let sortedlist = [];
     for (const img of imageList) {

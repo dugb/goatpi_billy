@@ -29,6 +29,8 @@ module.exports = class ImageHandler {
    *  https://goatpi.com/getImageUrl?image=filename&date=20191218
    * then the get request handler will serve back the requested image.
    * 
+   *  will also need a handler to return all image directories (all dates that have available images)
+   * 
    * // todo(dugb) need to have a source images seperated into directories by 
    *    date.
    * 

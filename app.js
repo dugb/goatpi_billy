@@ -13,21 +13,21 @@ const IMG_PATH = keys.IMG_PATH;
 const DATA_PATH = keys.DATA_PATH;
 
 
-const db = mysql.createConnection({
-  host: keys.host,
-  user: keys.user,
-  password: keys.password,
-  database: keys.database,
-});
+// const db = mysql.createConnection({
+//   host: keys.host,
+//   user: keys.user,
+//   password: keys.password,
+//   database: keys.database,
+// });
 
 // todo(dugb) handle the db server closing the connection.
-db.connect((err) => {
-  if (err) {
-    throw err;
-  }
-  console.log('Connected to database');
-});
-global.db = db;
+// db.connect((err) => {
+//   if (err) {
+//     throw err;
+//   }
+//   console.log('Connected to database');
+// });
+// global.db = db;
 
 /** Responds with the latest image. */
 app.get('/image', (reg, res) => {
@@ -45,8 +45,9 @@ app.get('/image', (reg, res) => {
 
 /** Responds with an array of images. */
 app.get('/imagelist', (req, res) => {
+  const date = req.query.date;
   const imageHandler = new ImageHandler();
-  const imageList = imageHandler.getSuitableImageList(IMG_PATH);
+  const imageList = imageHandler.getSuitableImageList(IMG_PATH+date+'/');
   res.send(imageList);
 })
 
@@ -57,41 +58,64 @@ app.get('/data', (req, res) => {
   res.status(200).json(data)
 });
 
-// db READ query test.
-app.get('/dbr', (req, res) => {
-  let query = "SELECT datetime, temp, level FROM GoatData WHERE datetime = (SELECT max(datetime) FROM GoatData);";
-  db.query(query, (err, result) => {
-    if (err) {
-      console.log('error: ', err);
-    }
-    console.log('results: ', result[0]);
-    res.send(result[0])
-  });
-});
+/** Responds with a list of directories. */
+app.get('/dirlist', (req, res) => {
+  const source = keys.IMG_PATH;
+  const imageHandler = new ImageHandler();
+  const dirList = imageHandler.getDirectories(source);
+  res.send(dirList);
+})
 
-// db select all test.
-app.get('/dball', (req, res) => {
-  let query = "SELECT * FROM GoatData;";
-  db.query(query, (err, result) => {
-    if (err) {
-      console.log('error: ', err);
-    }
-    console.log('results: ', result);
-    res.send(result)
-  });
-});
+/** Responds with the image from the date. */
+app.get('/getimage', (req, res) => {
+  const date = req.query.date;
+  const name = req.query.name;
+  const source = keys.IMG_PATH + date + '/' + name;
+  const exists = true;  // todo check if file exists.
+  if (exists) {
+    res.sendFile(source);
+  } else {
+    res.status(500);
+    res.send('error, image not found.')
+  }
+  
+})
 
-// db WRITE query test.
-app.get('/dbw', (req, res) => {
-  let query = "INSERT INTO GoatData (temp, level) VALUES(19, 42);";
-  db.query(query, (err, result) => {
-    if (err) {
-      console.log('error: ', err);
-    }
-    console.log('results: ', result[0]);
-    res.send(result[0])
-  });
-});
+// // db READ query test.
+// app.get('/dbr', (req, res) => {
+//   let query = "SELECT datetime, temp, level FROM GoatData WHERE datetime = (SELECT max(datetime) FROM GoatData);";
+//   db.query(query, (err, result) => {
+//     if (err) {
+//       console.log('error: ', err);
+//     }
+//     console.log('results: ', result[0]);
+//     res.send(result[0])
+//   });
+// });
+
+// // db select all test.
+// app.get('/dball', (req, res) => {
+//   let query = "SELECT * FROM GoatData;";
+//   db.query(query, (err, result) => {
+//     if (err) {
+//       console.log('error: ', err);
+//     }
+//     console.log('results: ', result);
+//     res.send(result)
+//   });
+// });
+
+// // db WRITE query test.
+// app.get('/dbw', (req, res) => {
+//   let query = "INSERT INTO GoatData (temp, level) VALUES(19, 42);";
+//   db.query(query, (err, result) => {
+//     if (err) {
+//       console.log('error: ', err);
+//     }
+//     console.log('results: ', result[0]);
+//     res.send(result[0])
+//   });
+// });
 
 app.listen(PORT, () =>
   console.log(`goatpi_billy started on port ${PORT}!`)

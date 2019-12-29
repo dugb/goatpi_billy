@@ -15,7 +15,10 @@ module.exports = class ImageHandler {
    * @return {Array<string>}  Array of file names.
    */
   getImageList(imagePath) {
-    return fs.readdirSync(imagePath).reverse();
+    return fs.readdirSync(imagePath, { withFileTypes: true })
+    .filter(dirent => !dirent.isDirectory())
+    .map(dirent => dirent.name)
+    .reverse()
   }
 
   /** 

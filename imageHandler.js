@@ -115,8 +115,16 @@ module.exports = class ImageHandler {
   }
 
   getDirectories(source) {
-    return fs.readdirSync(source, { withFileTypes: true })
-      .filter(dirent => dirent.isDirectory())
-      .map(dirent => dirent.name)
+    let dirListing = fs.readdirSync(source);
+    let dirList = [];
+    for (const i of dirListing) {
+      if(fs.statSync(source + i).isDirectory()){
+        dirList.push(i);
+      }
+    }
+    return dirList;
+    // return fs.readdirSync(source, { withFileTypes: true })
+    //   .filter(dirent => dirent.isDirectory())
+    //   .map(dirent => dirent.name)
   }
 };

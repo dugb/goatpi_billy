@@ -49,22 +49,15 @@ app.get('/imagelist', (req, res) => {
   const imageHandler = new ImageHandler();
   const imageList = imageHandler.getSuitableImageList(IMG_PATH+date+'/');
   res.send(imageList);
-})
-
-/** Responds with the latest data. */
-app.get('/data', (req, res) => {
-  const dataHandler = new DataHandler();
-  const data = dataHandler.jsonReader(DATA_PATH + 'data.json')
-  res.status(200).json(data)
 });
 
-/** Responds with a list of directories. */
+/** Responds with a list of image directories. */
 app.get('/dirlist', (req, res) => {
   const source = keys.IMG_PATH;
   const imageHandler = new ImageHandler();
   const dirList = imageHandler.getDirectories(source);
   res.send(dirList);
-})
+});
 
 /** Responds with the image from the date. */
 app.get('/getimage', (req, res) => {
@@ -76,10 +69,16 @@ app.get('/getimage', (req, res) => {
     res.sendFile(source);
   } else {
     res.status(500);
-    res.send('error, image not found.')
+    res.send('error, image not found.');
   }
-  
-})
+});
+
+/** Responds with the latest data. */
+app.get('/data', (req, res) => {
+  const dataHandler = new DataHandler();
+  const data = dataHandler.jsonReader(DATA_PATH + 'data.json')
+  res.status(200).json(data)
+});
 
 // // db READ query test.
 // app.get('/dbr', (req, res) => {

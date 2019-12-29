@@ -10,23 +10,19 @@ module.exports = class ImageHandler {
   constructor() {}
 
   /** 
-   * Gets all files from a path.
-   * @param {string} imagePath  Abs path of the images.
+   * Gets all files from a directory.
+   * @param {string} imagePath  Abs path of the directory.
    * @return {Array<string>}  Array of file names.
    */
   getImageList(imagePath) {
-    console.log(imagePath)
-    let imageList = fs.readdirSync(imagePath);
-    let returnList = [];
-    for (const i of imageList) {
-      console.log(i);
-      console.log(fs.statSync(imagePath + i).isFile());
+    let dirListing = fs.readdirSync(imagePath);
+    let fileList = [];
+    for (const i of dirListing) {
       if(fs.statSync(imagePath + i).isFile()){
-        returnList.push(i);
+        fileList.push(i);
       }
     }
-    console.log(returnList)
-    return returnList
+    return fileList;
   }
 
   /** 
@@ -123,5 +119,4 @@ module.exports = class ImageHandler {
       .filter(dirent => dirent.isDirectory())
       .map(dirent => dirent.name)
   }
-
 };

@@ -15,10 +15,18 @@ module.exports = class ImageHandler {
    * @return {Array<string>}  Array of file names.
    */
   getImageList(imagePath) {
-    return fs.readdirSync(imagePath)
-    .filter(file => !file.isDirectory())
-    .map(file => file.name)
-    .reverse()
+    console.log(imagePath)
+    let imageList = fs.readdirSync(imagePath);
+    let returnList = [];
+    for (const i of imageList) {
+      console.log(i);
+      console.log(fs.statSync(imagePath + i).isFile());
+      if(fs.statSync(imagePath + i).isFile()){
+        returnList.push(i);
+      }
+    }
+    console.log(returnList)
+    return returnList
   }
 
   /** 

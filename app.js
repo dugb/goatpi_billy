@@ -32,9 +32,13 @@ const DATA_PATH = keys.DATA_PATH;
 /** Responds with the latest image. */
 app.get('/image', (reg, res) => {
   const imageHandler = new ImageHandler();
-  const imageList = imageHandler.getImageList(IMG_PATH);
-  const sortedList = imageHandler.sortByModTime(imageList, IMG_PATH);
-  const mostRecentImage = imageHandler.getMostRecentSuitableImage(sortedList, IMG_PATH);
+  // first check current date, then check prev dates until we get a list that is not empty.
+  // we need to get a dir list.
+  const date = todayStr();
+  const imageList = imageHandler.getImageList(IMG_PATH + date + '/');
+  console.log(imageList);
+  const sortedList = imageHandler.sortByModTime(imageList, IMG_PATH + date + '/');
+  const mostRecentImage = imageHandler.getMostRecentSuitableImage(sortedList, IMG_PATH + date + '/');
   if (mostRecentImage) {
     res.sendFile(mostRecentImage);
   } else {
@@ -79,6 +83,14 @@ app.get('/data', (req, res) => {
   const data = dataHandler.jsonReader(DATA_PATH + 'data.json')
   res.status(200).json(data)
 });
+
+function todayStr() {
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  const yyyy = today.getFullYear();
+  return yyyy + mm + dd;
+}
 
 // // db READ query test.
 // app.get('/dbr', (req, res) => {

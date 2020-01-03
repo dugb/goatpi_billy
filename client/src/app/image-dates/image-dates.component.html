@@ -1,0 +1,8 @@
+<div *ngIf="datesData | async as dates; else loading">
+    <div *ngFor="let date of dates" (click)="onSelectDate(date)">{{date}}</div>
+</div>
+--------------------------  
+<ng-template #loading>
+    <div class="loading">Loading dates...</div>
+</ng-template>
+

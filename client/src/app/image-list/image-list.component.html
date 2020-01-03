@@ -1,0 +1,16 @@
+<app-image-dates (dateEvent)="receiveDate($event)"></app-image-dates>
+
+<div>{{date}}</div>
+<div class="slide-show-container">
+    <slideshow [height]="'600px'"
+           
+        [autoPlay]="false"
+        [showArrows]="true"
+        [imageUrls]="imageUrls"
+        [lazyLoad]="imageUrls?.length > 1"
+        [autoPlayWaitForLazyLoad]="true"
+        [backgroundSize]="contain"
+        [autoPlayInterval]="5000"
+        [arrowSize]="'20px'">
+    </slideshow>
+</div>

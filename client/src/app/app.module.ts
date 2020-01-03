@@ -8,11 +8,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
-import { ImagesComponent } from './images/images.component';
+// import { ImagesComponent } from './images/images.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ImageDatesComponent } from './image-dates/image-dates.component';
+import { ImageListComponent } from './image-list/image-list.component';
 
 @NgModule({
-  declarations: [AppComponent, ImagesComponent],
+  declarations: [AppComponent, ImageDatesComponent, ImageListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     SlideshowModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ImageDatesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

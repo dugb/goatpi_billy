@@ -18,10 +18,9 @@ export class ImageDatesComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSelectDate(date){
-    this.date = date;
-    this.dateEvent.emit(this.date)
-    console.log(this.date);
+  onSelectDate(date) {
+    this.date = date.value;
+    this.dateEvent.emit(this.date);
   }
 
 }

@@ -1,0 +1,25 @@
+<mat-nav-list>
+  <a mat-list-item routerLink="/" (click)="onClose()">
+    <mat-icon>bathtub</mat-icon>
+    <span class="nav-caption">Latest Goat Pic</span>
+  </a>
+  <a mat-list-item routerLink="/goatshow" (click)="onClose()">
+    <mat-icon>airline_seat_recline_extra</mat-icon>
+    <span class="nav-caption">Goat Cam Show</span>
+  </a>  
+  <a mat-list-item routerLink="/signup" (click)="onClose()">
+    <mat-icon>sports_kabaddi</mat-icon>
+    <span class="nav-caption">Signup</span>
+  </a>
+  <a mat-list-item routerLink="/login" (click)="onClose()">
+    <mat-icon>directions_run</mat-icon>
+    <span class="nav-caption">Login</span>
+  </a>
+  <mat-list-item>
+    <button mat-icon-button (click)="onClose()">
+      <mat-icon>sports_handball</mat-icon>
+      <span class="nav-caption">Logout</span>
+    </button>
+  </mat-list-item>
+
+</mat-nav-list>

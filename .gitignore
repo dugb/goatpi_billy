@@ -2,9 +2,6 @@
 keys*
 config*
 
-# test images
-images/
-
 # Logs
 logs
 *.log

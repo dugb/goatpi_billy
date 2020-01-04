@@ -123,8 +123,5 @@ module.exports = class ImageHandler {
       }
     }
     return dirList;
-    // return fs.readdirSync(source, { withFileTypes: true })
-    //   .filter(dirent => dirent.isDirectory())
-    //   .map(dirent => dirent.name)
   }
 };

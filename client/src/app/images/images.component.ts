@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./images.component.css']
 })
 export class ImagesComponent implements OnInit {
-  public cardContent = 'Goat cam, live images every 5 minutes.';
+  public cardContent = 'Live images from the Goat Cam, refreshes every 5 minutes.';
   public imageUrl: string;
   interval: any;
 

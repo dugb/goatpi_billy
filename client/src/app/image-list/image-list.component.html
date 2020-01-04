@@ -1,8 +1,6 @@
-<app-image-dates (dateEvent)="receiveDate($event)"></app-image-dates>
 
-<div>{{date}}</div>
 <div class="slide-show-container">
-    <slideshow [height]="'600px'"
+    <slideshow [height]="'450px'"
            
         [autoPlay]="false"
         [showArrows]="true"
@@ -14,3 +12,6 @@
         [arrowSize]="'20px'">
     </slideshow>
 </div>
+<div>{{date}}</div>
+
+<app-image-dates (dateEvent)="receiveDate($event)"></app-image-dates>

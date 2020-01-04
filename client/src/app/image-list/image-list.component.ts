@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { Observable, Subscription, timer } from "rxjs";
-import { FetchImageListService } from "../fetch-image-list.service";
-import { ImageDatesComponent } from "../image-dates/image-dates.component";
+import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription, timer } from 'rxjs';
+import { FetchImageListService } from '../fetch-image-list.service';
+import { ImageDatesComponent } from '../image-dates/image-dates.component';
 
 @Component({
-  selector: "app-image-list",
-  templateUrl: "./image-list.component.html",
-  styleUrls: ["./image-list.component.css"]
+  selector: 'app-image-list',
+  templateUrl: './image-list.component.html',
+  styleUrls: ['./image-list.component.css']
 })
 export class ImageListComponent implements OnInit {
   today = new Date();

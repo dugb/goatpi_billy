@@ -1,9 +1,0 @@
-<div class='container'>
-    <h1 class='header'>goat pi</h1>
-    
-    <app-images></app-images>
-
-    <app-date-list></app-date-list>
-
-    <router-outlet></router-outlet>
-</div>

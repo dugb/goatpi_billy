@@ -1,17 +1,16 @@
 
-<div class="slide-show-container">
+<div class='slide-show-container'>
     <slideshow [height]="'450px'"
-           
         [autoPlay]="false"
         [showArrows]="true"
         [imageUrls]="imageUrls"
         [lazyLoad]="imageUrls?.length > 1"
         [autoPlayWaitForLazyLoad]="true"
-        [backgroundSize]="contain"
+        [backgroundSize]="'contain'"
         [autoPlayInterval]="5000"
-        [arrowSize]="'20px'">
-    </slideshow>
+        [arrowSize]="'20px'"
+    ></slideshow>
 </div>
 <div>{{date}}</div>
 
-<app-image-dates (dateEvent)="receiveDate($event)"></app-image-dates>
+<app-image-dates (dateEvent)='receiveDate($event)'></app-image-dates>

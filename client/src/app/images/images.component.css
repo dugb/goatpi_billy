@@ -1,0 +1,9 @@
+.goatcam_card {
+    max-width: 800px;
+  }
+  
+  .example-header-image {
+    background-image: url('http://localhost:3111/image');
+    background-size: cover;
+  }
+  

@@ -2,6 +2,9 @@
 keys*
 config*
 
+# dbHelpers
+dbHelpers*
+
 # Logs
 logs
 *.log

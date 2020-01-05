@@ -8,7 +8,7 @@ import {catchError, tap, map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class FetchImageListService {
-  private readonly dirlistUrl = 'https://api.goatpi.com/imagelist?date=';
+  private readonly dirlistUrl = 'https://api.goatpi.com/images/imagelist?date=';
 
   constructor(private readonly http: HttpClient) { }
 
@@ -16,7 +16,7 @@ export class FetchImageListService {
     const imageList = this.http.get<any>(this.dirlistUrl + date);
     return imageList;
       // .pipe(
-      //   map(image => `https://api.goatpi.com/getimage?date=${date}&name=${image}`)
+      //   map(image => `https://api.goatpi.com/images/getimage?date=${date}&name=${image}`)
       // );
   }
 }

@@ -20,7 +20,7 @@ export class ImagesComponent implements OnInit {
   }
 
   loadImage(cacheBuster){
-    this.imageUrl = 'https://api.goatpi.com/image' + '?c=' + cacheBuster;
+    this.imageUrl = 'https://api.goatpi.com/images/latestimage' + '?c=' + cacheBuster;
   }
 
   getRandomInt(max) {

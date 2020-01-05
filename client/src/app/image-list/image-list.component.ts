@@ -35,7 +35,7 @@ export class ImageListComponent implements OnInit {
   getNewImages() {
     this.imageListSubscription = this.imageListData.subscribe(items => {
       this.imageUrls = items.map(image => {
-        return `https://api.goatpi.com/getimage?date=${this.date}&name=${image}`;
+        return `https://api.goatpi.com/images/getimage?date=${this.date}&name=${image}`;
       });
     });
   }

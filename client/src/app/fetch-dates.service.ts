@@ -8,7 +8,7 @@ import {catchError, tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class FetchDatesService {
-  private readonly dirlistUrl = 'https://api.goatpi.com/dirlist';
+  private readonly dirlistUrl = 'https://api.goatpi.com/images/datelist';
 
   constructor(private readonly http: HttpClient) { }
 
